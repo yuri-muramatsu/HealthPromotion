@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragment :: meta}"></div>
+
+        <div th:replace="~{fragment :: styles}"></div>
+
+        <title>体型入力</title>
+    </head>
+    <body>
+        <div class="healthpromotion-wrapper">
+            <!-- ヘッダー -->
+            <div th:replace="~{fragment :: header}"></div>
+
+            <main>
+                <div class="container pt-4 pb-5 healthpromotion-container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8">
+
+                            <h1 class="mb-4 text-center">体型入力</h1>
+
+                            <form method="post" th:action="@{/bodymeasurement}" th:object="${bodyMeasurementForm}">
+                                <div th:if="${successMessage}" class="alert alert-info">
+                                 <span th:text="${successMessage}"></span>
+                                 </div>
+
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-5">
+                                        <label for="heightCM" class="col-form-label text-md-left fw-bold">
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-1">身長(cm)</span>
+                                                <span class="badge bg-danger">必須</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div th:if="${#fields.hasErrors('heightCM')}" class="text-danger small mb-2" th:errors="*{heightCM}"></div>
+                                        <input type="text" class="form-control" th:field="*{heightCM}" autocomplete="heightCM" autofocus placeholder="身長(cm)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-5">
+                                        <label for="weightKG" class="col-form-label text-md-left fw-bold">
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-1">体重(kg)</span>
+                                                <span class="badge bg-danger">必須</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div th:if="${#fields.hasErrors('weightKG')}" class="text-danger small mb-2" th:errors="*{weightKG}"></div>
+                                        <input type="text" class="form-control" th:field="*{weightKG}" autocomplete="weightKG" autofocus placeholder="体重(kg)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group d-flex justify-content-center my-4">
+                                    <button type="submit" class="btn text-white shadow-sm w-50 healthpromotion-btn">結果を見る</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- フッター -->
+            <div th:replace="~{fragment :: footer}"></div>
+        </div>
+
+        <div th:replace="~{fragment :: scripts}"></div>
+    </body>
+</html>

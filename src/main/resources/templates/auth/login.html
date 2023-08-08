@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragment :: meta}"></div>
+
+        <div th:replace="~{fragment :: styles}"></div>
+
+        <title>ログイン</title>
+    </head>
+    <body>
+        <div class="healthpromotion-wrapper">
+            <!-- ヘッダー -->
+            <div th:replace="~{fragment :: header}"></div>
+
+            <main>
+                <div class="container pt-4 pb-5 healthpromotion-container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7">
+
+                            <h1 class="mb-4 text-center">ログイン</h1>
+
+                            <form method="post" th:action="@{/login}" th:object="${loginForm}">
+
+                                <div class="form-group mb-3">
+                                    <div th:if="${#fields.hasErrors('email')}" class="text-danger small mb-2" th:errors="*{email}"></div>
+                                    <input type="text" class="form-control" th:field="*{email}" autocomplete="email" autofocus placeholder="メールアドレス" >
+                                </div>
+                                <div class="form-group mb-3">
+                                    <div th:if="${#fields.hasErrors('password')}" class="text-danger small mb-2" th:errors="*{password}"></div>
+                                    <input type="password" class="form-control" th:field="*{password}" autocomplete="password" placeholder="パスワード">
+                                </div>
+
+                                <div class="form-group d-flex justify-content-center my-4">
+                                    <button type="submit" class="btn text-white shadow-sm w-100 healthpromotion-btn">ログイン</button>
+                                </div>
+                            </form>
+
+                            <div class="text-center">
+                                <a th:href="@{/signup}">
+                                    会員登録
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- フッター -->
+            <div th:replace="~{fragment :: footer}"></div>
+        </div>
+
+        <div th:replace="~{fragment :: scripts}"></div>
+    </body>
+</html>

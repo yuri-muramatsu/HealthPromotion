@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragment :: meta}"></div>
+        <div th:replace="~{fragment :: styles}"></div>
+        <title>栄養成分一覧</title>
+    </head>
+    <body>
+        <div class="healthpromotion-wrapper">
+            <!-- ヘッダー -->
+            <div th:replace="~{fragment :: header}"></div>
+
+            <main>
+                <div class="container pt-4 pb-5 healthpromotion-container">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-9 col-xl-10 col-lg-11">
+
+                            <h1 class="mb-4 text-center">栄養成分一覧</h1>
+
+                            <div class="d-flex justify-content-between align-items-end flex-wrap">
+                                <a href="#" class="btn text-white shadow-sm mb-3 healthpromotion-btn">登録</a>
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">料理名</th>
+                                        <th scope="col">料理分類</th>
+                                        <th scope="col">エネルギー量</th>
+                                        <th scope="col">食塩相当量</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="food : ${foods}">
+                                        <td th:text="${food.getId()}"></td>
+                                        <td th:text="${food.getName()}"></td>
+                                        <td th:text="${food.getDishType()}"></td>
+                                        <td th:text="${food.getEnergy()}"></td>
+                                        <td th:text="${food.getNacl()}"></td>
+                                        <td><a th:href="#">詳細</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- フッター -->
+            <div th:replace="~{fragment :: footer}"></div>
+        </div>
+        <div th:replace="~{fragment :: scripts}"></div>
+    </body>
+</html>
