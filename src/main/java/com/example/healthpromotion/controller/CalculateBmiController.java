@@ -16,25 +16,28 @@ import com.example.healthpromotion.form.BodyMeasurementForm;
 @Controller
 public class CalculateBmiController {
 
-@PostMapping("/bodymeasurement")
-public String colculateBmi(@ModelAttribute @Validated BodyMeasurementForm bodyMeasurementForm, BindingResult bindingResult,
-        @RequestParam(name = "weightKG", required = false) final Integer weightKG, @RequestParam(name = "heightCM", required = false) final Integer heightCM, RedirectAttributes redirectAttributes) throws NoSuchAlgorithmException {
-    if (bindingResult.hasErrors()) {
-        return "auth/bodymeasurement";
-    }
-    // BMI計算
-    int weightkg = bodyMeasurementForm.getWeightKG();
-    int heightcm = bodyMeasurementForm.getHeightCM();
-    int bmi1 = weightkg / ((heightcm * heightcm)/10000);
-    Integer bmi2 = Integer.valueOf(bmi1);
-    String bmi3 = bmi2.toString();
-    redirectAttributes.addFlashAttribute("caluculateBmiResult", "あなたのBMIは" + bmi3 +"です。");
+	@PostMapping("/bodymeasurement")
+	public String colculateBmi(@ModelAttribute @Validated final BodyMeasurementForm bodyMeasurementForm,
+			final BindingResult bindingResult,
+			@RequestParam(name = "weightKG", required = true) final int weightKG,
+			@RequestParam(name = "heightCM", required = true) final int heightCM,
+			final RedirectAttributes redirectAttributes) throws NoSuchAlgorithmException {
+		if (bindingResult.hasErrors()) {
+			return "auth/bodymeasurement";
+		}
+		// BMI計算
+		final int weightkg = bodyMeasurementForm.getWeightKG();
+		final int heightcm = bodyMeasurementForm.getHeightCM();
+		final int bmi1 = weightkg / ((heightcm * heightcm) / 10000);
+		final String bmi3 = String.valueOf(bmi1);
+		redirectAttributes.addFlashAttribute("calculateBmiResult", "あなたのBMIは" + bmi3 + "です。");
 
-    return "redirect:/./bmiresult";
-    }
+		return "redirect:/bmiresult";
+	}
 
-@GetMapping("/bmiresult")
-public String bmiresult() {
-    return "/bmiresult";
-    }
+	@GetMapping("/bmiresult")
+	public String bmiresult() {
+		return "/bmiresult";
+	}
+
 }
