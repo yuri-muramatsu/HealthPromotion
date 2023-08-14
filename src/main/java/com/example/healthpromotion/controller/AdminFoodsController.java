@@ -14,26 +14,27 @@ import com.example.healthpromotion.repository.FoodsRepository;
 @Controller
 @RequestMapping("/admin/foods")
 public class AdminFoodsController {
-    private final FoodsRepository foodsRepository;
+	private final FoodsRepository foodsRepository;
 
-    public AdminFoodsController(FoodsRepository foodsRepository) {
-        this.foodsRepository = foodsRepository;
-    }
+	public AdminFoodsController(final FoodsRepository foodsRepository) {
+		this.foodsRepository = foodsRepository;
+	}
 
-    @GetMapping
-    public String index(Model model) {
-        List<Foods> foods = foodsRepository.findAll();
-        model.addAttribute("foods", foods);
+	@GetMapping
+	public String index(final Model model) {
+		final List<Foods> foods = foodsRepository.findAll();
+		model.addAttribute("foods", foods);
 
-        return "admin/foods/index";
-    }
+		return "admin/foods/index";
+	}
 
-    @GetMapping("/{id}")
-    public String show(@PathVariable(name = "id") Integer id, Model model) {
-        Foods foods = foodsRepository.getReferenceById(id);
+	@GetMapping("/{id}")
+	public String show(@PathVariable(name = "id") final Integer id, final Model model) {
+		final Foods foods = foodsRepository.getReferenceById(id);
 
-        model.addAttribute("foods", foods);
+		model.addAttribute("foods", foods);
 
-        return "/admin/foods/show";
-    }
+		return "/admin/foods/show";
+	}
+
 }
