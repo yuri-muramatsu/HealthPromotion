@@ -19,14 +19,16 @@
 
                             <h1 class="mb-4 text-center">体型入力</h1>
 
-                            <form method="post" th:action="@{/bodymeasurement}" th:object="${bodyMeasurementForm}">
+                            <form method="POST" th:action="@{/bodymeasurement}" th:object="${bodyMeasurementForm}">
                                 <div th:if="${successMassage}" class="mb-4 text-center">
                                    <span th:text="${successMassage}"></span>
                                 </div>
                                 <div class="mb-4 text-center">こんにちは、
-                                   <div th:if="${memberName}" class="mb-4 text-center">
-                                         <span th:text="${memberName}"></span>さん
-                                    </div>
+                                   <h2 th:if="${memberName}" class="mb-4 text-center text-nowrap">
+                                         <span th:text="${memberName}"></span>さん<br>
+                                         BMIと適正体重、さらに推定必要エネルギー量を求めます。<br>
+                                         身長と体重、身体活動レベルを入力してください。<br>
+                                    </h2>
                                 </div>
 
                                 <div class="form-group row mb-3">
@@ -56,6 +58,24 @@
                                     <div class="col-md-7">
                                         <div th:if="${#fields.hasErrors('weightKG')}" class="text-danger small mb-2" th:errors="*{weightKG}"></div>
                                         <input type="text" class="form-control" th:field="*{weightKG}" autocomplete="weightKG" autofocus placeholder="体重(kg)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-5">
+                                        <label for="pla" class="col-form-label text-md-left fw-bold">
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-1">身体活動レベル</span>
+                                                <span class="badge bg-danger">必須</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7">
+                                    下記の中から、普段の生活に一番近いものを選択してください。<br><br>
+                                        <div th:if="${#fields.hasErrors('pla')}" class="text-danger small mb-2 text-nowrap" th:errors="*{pla}"></div>
+                                            <input type="radio" name="pla" value="1.5"/>低い:生活の大部分が座位で、静的な活動が中心の場合<br>
+                                            <input type="radio" name="pla" value="1.75" checked/>普通:座位中心の仕事だが、職場内での移動や立位での作業・接客等、あるいは通勤・買い物・家事、軽いスポーツ等のいずれかを含む場合<br>
+                                            <input type="radio" name="pla" value="2.0"/>高い:	移動や立位の多い仕事への従事者。あるいは、スポーツなどの余暇における活発な運動習慣をもっている場合<br>
                                     </div>
                                 </div>
 

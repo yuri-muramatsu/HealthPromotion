@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragment :: meta}"></div>
+
+        <div th:replace="~{fragment :: styles}"></div>
+        <title>Health Promotion</title>
+    </head>
+    <body>
+        <div class="healthpromotion-wrapper">
+            <!-- ヘッダー -->
+            <div th:replace="~{fragment :: header}"></div>
+
+            <main>
+                <div class="container pt-4 pb-5 healthpromotion-container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8">
+                            <form method="POST" th:action="@{/geinweight}" th:object="${geinWeightForm}">
+
+                                <h1 class="mb-4 text-center">目標設定</h1><hr>
+                                <h3 class="mb-4 text-center">増量する</h3>
+                                <h3 class="mb-4 text-center text-nowrap">目標を立てましょう。<br>
+                                    いつまでに、どのくらい増量したいか選んでください。</h3>
+                                <div class="form-group row mb-3">
+                                    <div class="col-md-5">
+                                        <label for="period" class="col-form-label text-md-left fw-bold">
+                                               <div class="d-flex align-items-center">
+                                                <span class="me-1">いつまでに</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <select name="period">
+                                            <option value="30">1か月</option>
+                                            <option value="60">2か月</option>
+                                            <option value="90">3か月</option>
+                                            <option value="120">4か月</option>
+                                            <option value="150">5か月</option>
+                                            <option value="180">6か月</option>
+                                            <option value="365">1年</option>
+                                        </select>
+                                     </div>
+                                 </div>
+
+                                 <div class="form-group row mb-3">
+                                     <div class="col-md-5">
+                                        <label for="geinweightKG" class="col-form-label text-md-left fw-bold">
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-1">どのくらい(kg)</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div th:if="${#fields.hasErrors('geinweightKG')}" class="text-danger small mb-2" th:errors="*{geinweightKG}"></div>
+                                        <input type="text" class="form-control" th:field="*{geinweightKG}" autocomplete="geinweightKG" autofocus placeholder="増量(kg)">
+                                    </div>
+                                 </div>
+
+                                    <div class="form-group d-flex justify-content-center my-4">
+                                        <button type="submit" class="btn text-white shadow-sm w-50 healthpromotion-btn">続ける</button>
+                                    </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <a th:href="@{/logout}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">ログアウト</a>
+                                </div>
+                            </form>
+                         </div>
+                    </div>
+                 </div>
+            </main>
+
+            <!-- フッター -->
+            <div th:replace="~{fragment :: footer}"></div>
+        </div>
+        <div th:replace="~{fragment :: scripts}"></div>
+    </body>
+</html>

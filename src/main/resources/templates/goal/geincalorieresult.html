@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragment :: meta}"></div>
+
+        <div th:replace="~{fragment :: styles}"></div>
+        <title>Health Promotion</title>
+    </head>
+    <body>
+        <div class="healthpromotion-wrapper">
+            <!-- ヘッダー -->
+            <div th:replace="~{fragment :: header}"></div>
+
+            <main>
+                <div class="container pt-4 pb-5 healthpromotion-container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8">
+
+                            <h1 class="mb-4 text-center">１日に増やすべきカロリー</h1>
+                                <div th:if="${calculateGeinCalorieResult}" class="mb-4 text-center">
+                                    <h2 th:text="${calculateGeinCalorieResult}" class="mb-4 text-center"></h2>
+                                </div>
+                                <h5 class="mb-4 text-center">
+                                    たんぱく質を中心に、バランスのよい食事を心がけましょう。<br>
+                                    また、食事を4～6回に分けて食べることもおすすめです。
+                                </h5>
+                            <div class="d-flex justify-content-end">
+                                <a th:href="@{/logout}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">ログアウト</a>
+                            </div>
+                         </div>
+                    </div>
+                 </div>
+            </main>
+
+            <!-- フッター -->
+            <div th:replace="~{fragment :: footer}"></div>
+        </div>
+        <div th:replace="~{fragment :: scripts}"></div>
+    </body>
+</html>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.healthpromotion.entity.Accounts;
-import com.example.healthpromotion.form.BodyMeasurementForm;
 import com.example.healthpromotion.form.LoginForm;
 import com.example.healthpromotion.form.SignupForm;
 import com.example.healthpromotion.repository.AccountsRepository;
@@ -55,12 +54,6 @@ public class AuthController {
 		return "redirect:";
 	}
 
-	@GetMapping("/bodymeasurement")
-	public String bodymeasurement(final Model model) {
-		model.addAttribute("bodyMeasurementForm", new BodyMeasurementForm());
-		return "auth/bodymeasurement";
-	}
-
 	@PostMapping("/signup")
 	public String signup(@ModelAttribute @Validated final SignupForm signupForm, final BindingResult bindingResult,
 			final RedirectAttributes redirectAttributes) throws NoSuchAlgorithmException {
@@ -71,16 +64,21 @@ public class AuthController {
 			bindingResult.addError(fieldError);
 		}
 		// パスワードと確認用パスワードの入力値の確認
-		if (!accountsService.isSamePassword(signupForm.getPassword(), signupForm.getPasswordConfirmation())) {
-			final FieldError fieldError = new FieldError(bindingResult.getObjectName(), "password", "入力に誤りがあります。");
-			bindingResult.addError(fieldError);
-		}
+		/*if (!accountsService.isSamePassword(signupForm.getPassword(), signupForm.getPasswordConfirmation())) {
+		    final FieldError fieldError = new FieldError(bindingResult.getObjectName(), "password", "入力に誤りがあります。");
+		    bindingResult.addError(fieldError);
+		}*/
 		if (bindingResult.hasErrors()) {
 			return "auth/signup";
 		}
 		accountsService.create(signupForm);
 		redirectAttributes.addFlashAttribute("successMassage", "会員登録が完了しました。");
 		redirectAttributes.addFlashAttribute("memberName", signupForm.getName());
+		final int birthYear = signupForm.getBirthYear();
+		final String gender = signupForm.getGender();
+		// sessionに取得情報を入れる
+		session.setAttribute("gender", gender);
+		session.setAttribute("birthYear", birthYear);
 		session.setAttribute("generalId", "true");
 
 		return "redirect:/bodymeasurement";
@@ -105,6 +103,12 @@ public class AuthController {
 		// データベースのハッシュ済みパスワードと照合
 		if (accounts != null) {
 			if (hashedPassword.equals(accounts.getPassword())) {
+				// データベースから生年と性別を取得
+				final int birthYear = accounts.getBirthYear();
+				final String gender = accounts.getGender();
+				// sessionに取得情報を入れる
+				session.setAttribute("gender", gender);
+				session.setAttribute("birthYear", birthYear);
 				session.setAttribute("generalId", "true");
 				redirectAttributes.addFlashAttribute("memberName", accounts.getName());
 				return "redirect:/bodymeasurement";

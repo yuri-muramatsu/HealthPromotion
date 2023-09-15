@@ -17,9 +17,47 @@
                         <div class="col-xl-5 col-lg-6 col-md-8">
 
                             <h1 class="mb-4 text-center">結果発表</h1>
-                            <div th:if="${calculateBmiResult}" class="mb-4 text-center">
-                                <h2 th:text="${calculateBmiResult}" class="mb-4 text-center"></h2>
-                            </div>
+                                <div th:if="${calculateBmiResult}" class="mb-4 text-center">
+                                    <h2 th:text="${calculateBmiResult}" class="mb-4 text-center"></h2>
+                                </div>
+                                <h5 class="mb-4 text-center">
+                                    BMIは 体重(kg)÷身長(m)² で求めます。
+                                </h5>
+                                <br><br>
+                                 <div th:if="${calculateStandardWeightResult}" class="mb-4 text-center text-nowrap">
+                                    <h2 th:text="${calculateStandardWeightResult}" class="mb-4 text-center text-nowrap"></h2>
+                                </div>
+                                <h5 class="mb-4 text-center">
+                                    適正体重は 身長(m)²×22 で求めます。
+                                </h5>
+                                <div th:if="${differenceStandardWeightResult}" class="mb-4 text-center text-nowrap">
+                                    <h2 th:text="${differenceStandardWeightResult}" class="mb-4 text-center text-nowrap"></h2>
+                                </div>
+                                <br><br>
+                                <div th:if="${eerResult}" class="mb-4 text-center text-nowrap">
+                                    <h2 th:text="${eerResult}" class="mb-4 text-center text-nowrap"></h2>
+                                </div>
+                                <h5 class="mb-4 text-center">
+                                    推定エネルギー必要量は基礎代謝量に活動レベルをかけたもので、1日に必要なエネルギー量がわかります。
+                                </h5>
+
+                                <br><br>
+                                <h2 class="mb-4 text-center">
+                                   次に、あなたの目標を決めます。<br>
+                                   あなたの目標は次の３つのうち、どれですか？
+                                </h2>
+                                <div class="d-flex flex-row justify-content-around">
+                                    <div>
+                                        <a th:href="@{/geinweight}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">増量する</a>
+                                    </div>
+                                     <div>
+                                        <a th:href="@{/keepweight}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">現状維持</a>
+                                    </div>
+                                     <div>
+                                        <a th:href="@{/reduceweight}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">減量する</a>
+                                    </div>
+                                 </div>
+
                             <div class="d-flex justify-content-end">
                                 <a th:href="@{/logout}" class="btn text-white shadow-sm mb-3 healthpromotion-btn">ログアウト</a>
                             </div>
