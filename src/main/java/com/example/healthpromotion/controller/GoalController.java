@@ -70,8 +70,7 @@ public class GoalController {
 		final int reduceCalorie = colculateCalorie.calculateReduceCalorie(periodday, reduceweightkg);
 
 		redirectAttributes.addFlashAttribute("calculateWalkingCalorieResult",
-				"ウォーキングでは" + colculateCalorie.calculateWalkingCalorie(weightkg, reduceCalorie) + "分間です。" + weightkg
-						+ reduceCalorie);
+				"ウォーキングでは" + colculateCalorie.calculateWalkingCalorie(weightkg, reduceCalorie) + "分間です。");
 
 		return "redirect:/reducecalorieresult";
 	}
